@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Portfolio</title>
+    <style>
+        /* General Styles */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; line-height: 1.6; scroll-behavior: smooth; transition: all 0.3s ease; }
+        
+        /* Header */
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; text-align: center; padding: 80px 20px; transition: all 0.3s ease; }
+        header h1 { font-size: 2.5rem; margin: 0 0 10px 0; letter-spacing: 1px; }
+        header p { font-size: 1.2rem; margin: 0; font-weight: 300; opacity: 0.9; }
+
+        /* Navigation & Controls */
+        nav { background-color: #333; display: flex; justify-content: center; align-items: center; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; padding: 5px 0; }
+        nav a { color: white; padding: 12px 20px; text-decoration: none; font-weight: bold; transition: background 0.3s; }
+        nav a:hover { background-color: #555; color: #ffcc00; }
+
+        /* Action Buttons (Dark Mode & Voice) */
+        .action-btns { display: flex; gap: 10px; margin-left: 20px; }
+        .btn-tool { background: #ffcc00; color: #1e3c72; border: none; padding: 8px 15px; font-weight: bold; border-radius: 20px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 5px; }
+        .btn-tool:hover { background: #e6b800; transform: scale(1.05); }
+
+        /* Container & Sections */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        section { background: white; padding: 40px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        section h2 { color: #1e3c72; border-bottom: 2px solid #ffcc00; padding-bottom: 10px; margin-top: 0; transition: color 0.3s ease; }
+
+        /* About Section */
+        .about-wrapper { display: flex; align-items: center; gap: 30px; }
+        .profile-img { width: 250px; height: 250px; border-radius: 50%; object-fit: cover; border: 5px solid #1e3c72; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: border-color 0.3s; }
+        .about-text { flex: 1; }
+
+        /* Skills & Vision */
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
+        .skill-tag { background: #e9ecef; color: #495057; padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; border: 1px solid #ced4da; transition: all 0.3s; }
+        .vision-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .vision-card { background: #f8f9fa; padding: 20px; border-left: 4px solid #1e3c72; border-radius: 5px; transition: all 0.3s ease; }
+        .vision-card h3 { margin-top: 0; color: #2a5298; transition: color 0.3s ease; }
+
+        /* Slider */
+        .gallery-wrapper { display: flex; gap: 30px; align-items: center; }
+        .gallery-text { flex: 1; }
+        .slider-container { flex: 1; height: 400px; overflow: hidden; position: relative; background: #f8f9fa; border-radius: 8px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); border: 2px solid #eee; transition: all 0.3s; }
+        .slider-track { display: flex; flex-direction: column; gap: 15px; padding: 10px; animation: scrollUp 15s linear infinite; }
+        .slider-container:hover .slider-track { animation-play-state: paused; }
+        .slide img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; border: 3px solid #1e3c72; }
+        @keyframes scrollUp { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+
+        /* Video */
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 8px; margin-top: 20px; }
+        .video-container iframe, .video-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* Contact Form */
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 20px; }
+        .contact-info { background: #f8f9fa; padding: 20px; border-radius: 8px; border-top: 4px solid #ffcc00; transition: all 0.3s; }
+        .contact-form { display: flex; flex-direction: column; gap: 15px; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { font-weight: bold; margin-bottom: 5px; color: #1e3c72; transition: color 0.3s; }
+        .form-group input, .form-group textarea { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; font-family: inherit; background: white; color: #333; transition: all 0.3s; }
+        .submit-btn { background-color: #1e3c72; color: white; border: none; padding: 12px 20px; font-size: 1rem; font-weight: bold; border-radius: 5px; cursor: pointer; transition: background 0.3s; }
+        .submit-btn:hover { background-color: #ffcc00; color: #1e3c72; }
+
+        /* Footer */
+        footer { background: #222; color: white; text-align: center; padding: 20px; margin-top: 40px; }
+
+        /* ========================================= */
+        /* DARK MODE CSS                             */
+        /* ========================================= */
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        body.dark-mode header { background: linear-gradient(135deg, #111 0%, #222 100%); border-bottom: 2px solid #ffcc00; }
+        body.dark-mode section { background-color: #1e1e1e; box-shadow: 0 4px 10px rgba(255,255,255,0.02); }
+        body.dark-mode section h2, body.dark-mode .form-group label { color: #64b5f6; }
+        body.dark-mode .vision-card, body.dark-mode .contact-info, body.dark-mode .slider-container { background-color: #2c2c2c; border-color: #444; }
+        body.dark-mode .vision-card h3 { color: #90caf9; }
+        body.dark-mode .skill-tag { background: #333; color: #fff; border-color: #555; }
+        body.dark-mode .profile-img, body.dark-mode .slide img { border-color: #64b5f6; }
+        body.dark-mode .form-group input, body.dark-mode .form-group textarea { background: #333; color: #fff; border-color: #555; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-wrapper, .gallery-wrapper { flex-direction: column; text-align: center; }
+            .contact-wrapper { grid-template-columns: 1fr; }
+            .slider-container { width: 100%; height: 300px; }
+            .action-btns { margin: 10px 0; width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Namaste, Welcome to My World</h1>
+        <p>Aspirant | Tech Enthusiast | Public Speaker | Visionary</p>
+    </header>
+
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#skills">Skills</a>
+        <a href="#vision">Vision</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#media">Media</a>
+        <a href="#contact">Contact</a>
+        
+        <div class="action-btns">
+            <button id="theme-btn" class="btn-tool">🌙 Dark Mode</button>
+            <button id="voice-btn" class="btn-tool">🔊 Read Intro</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-wrapper">
+                <img src="https://via.placeholder.com/250" alt="My Profile Picture" class="profile-img">
+                <div class="about-text" id="intro-text">
+                    <p>Main ek imandaar aur mehnati vyakti hoon, jo nirantar seekhne aur khud ko behtar banane mein vishwas rakhta hai. Ek chhatra aur competitive exams ke aspirant ke roop mein, mera anubhav mujhe anushasan aur dhairya sikhata hai.</p>
+                    <p>Mera manna hai ki asli safalta sirf apne liye jeene mein nahi, balki doosron ke jeevan mein value add karne aur ek aadarsh banne mein hai. Main public speaking ke zariye logon ko prerit karna chahta hoon.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Technical & Professional Skills</h2>
+            <div class="skills-grid">
+                <span class="skill-tag">HTML5, CSS3, JavaScript</span>
+                <span class="skill-tag">Python (Pandas, Matplotlib)</span>
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">VBA & LibreOffice Basic</span>
+                <span class="skill-tag">High-Speed Typing</span>
+                <span class="skill-tag">Public Speaking</span>
+            </div>
+        </section>
+
+        <section id="vision">
+            <h2>My Vision & Future Projects</h2>
+            <div class="vision-container">
+                <div class="vision-card">
+                    <h3>Mau Tech Hub</h3>
+                    <p>Mau mein ek aisi jagah viksit karna jahan yuvaon ko nayi technology seekhne ka mauka mile.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>Regional Tourism</h3>
+                    <p>Apne kshetra ki sanskriti ko promote karke wahan tourism badhana.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <h2>My Journey & Moments</h2>
+            <div class="gallery-wrapper">
+                <div class="gallery-text">
+                    <p>Yahan mere safar ki kuch khaas jhalakiyan hain. Public speaking se lekar mere study aur tech projects tak.</p>
+                    <p><strong>Note:</strong> Photos ko aaram se dekhne ke liye apna mouse unke upar laayein!</p>
+                </div>
+                <div class="slider-container">
+                    <div class="slider-track">
+                        <div class="slide"><img src="https://via.placeholder.com/400x220?text=UPPCS+Preparation" alt="Study Mode"></div>
+                        <div class="slide"><img src="https://via.placeholder.com/400x220?text=Public+Speaking" alt="Speaking Session"></div>
+                        <div class="slide"><img src="https://via.placeholder.com/400x220?text=Mau+Tech+Hub+Vision" alt="Future Planning"></div>
+                        <div class="slide"><img src="https://via.placeholder.com/400x220?text=UPPCS+Preparation" alt="Study Mode"></div>
+                        <div class="slide"><img src="https://via.placeholder.com/400x220?text=Public+Speaking" alt="Speaking Session"></div>
+                        <div class="slide"><img src="https://via.placeholder.com/400x220?text=Mau+Tech+Hub+Vision" alt="Future Planning"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="media">
+            <h2>My Visual Representation</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <p><strong>Email:</strong> aapka.email@example.com</p>
+                    <p><strong>Location:</strong> Uttar Pradesh, India</p>
+                </div>
+                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
+                    <div class="form-group"><input type="text" name="name" required placeholder="Aapka Naam"></div>
+                    <div class="form-group"><input type="email" name="email" required placeholder="Aapka Email"></div>
+                    <div class="form-group"><textarea name="message" rows="5" required placeholder="Message..."></textarea></div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 My Personal Portfolio. Built with dedication.</p>
+    </footer>
+
+    <script>
+        // --- 1. Dark Mode Toggle Logic ---
+        const themeBtn = document.getElementById('theme-btn');
+        const body = document.body;
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if(body.classList.contains('dark-mode')) {
+                themeBtn.innerHTML = '☀️ Light Mode';
+                themeBtn.style.background = '#e0e0e0';
+                themeBtn.style.color = '#121212';
+            } else {
+                themeBtn.innerHTML = '🌙 Dark Mode';
+                themeBtn.style.background = '#ffcc00';
+                themeBtn.style.color = '#1e3c72';
+            }
+        });
+
+        // --- 2. Voice Reader Logic ---
+        const voiceBtn = document.getElementById('voice-btn');
+        let isSpeaking = false;
+
+        voiceBtn.addEventListener('click', () => {
+            // Agar pehle se bol raha hai, toh use rok do
+            if(isSpeaking) {
+                window.speechSynthesis.cancel();
+                voiceBtn.innerHTML = '🔊 Read Intro';
+                isSpeaking = false;
+                return;
+            }
+
+            // Web Speech API ka istemal
+            if ('speechSynthesis' in window) {
+                // 'About Me' section ka text nikalna
+                const textToRead = document.getElementById('intro-text').innerText;
+                const utterance = new SpeechSynthesisUtterance(textToRead);
+                
+                // Voice ki speed (1 normal hai, 0.9 thoda aaram se padhega)
+                utterance.rate = 0.9;
+                
+                // Hindi/English mixed aawaz ke liye bhasha set karna
+                utterance.lang = 'hi-IN';
+
+                // Jab bolna shuru ho
+                utterance.onstart = () => {
+                    isSpeaking = true;
+                    voiceBtn.innerHTML = '⏹️ Stop Reading';
+                };
+
+                // Jab bolna khatam ho jaye
+                utterance.onend = () => {
+                    isSpeaking = false;
+                    voiceBtn.innerHTML = '🔊 Read Intro';
+                };
+
+                // Bolna shuru karein
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Sorry, aapka browser Voice Reader support nahi karta.");
+            }
+        });
+    </script>
+
+</body>
+</html>
